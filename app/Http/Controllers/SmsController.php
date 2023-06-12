@@ -1,14 +1,21 @@
 <?php
 
 namespace App\Http\Controllers;
-use LaravelSmpp;
+use LaravelSmpp\SmppServiceInterface;
 
 class SmsController extends Controller
 {
-    public function send(SmppServiceInterface $smpp)
-    {
-        // One number
-        $this->smpp->sendOne(1234567890, 'Hi, this SMS was send via SMPP protocol');
+
+            protected $smpp;
         
-    }
-}
+            public function __construct(SmppServiceInterface $smpp)
+            {
+                $this->smpp = $smpp;
+            }
+        
+            public function send()
+            {
+                $this->smpp->sendOne('1234567890', 'This is an SMS message');
+            }
+        }
+        
